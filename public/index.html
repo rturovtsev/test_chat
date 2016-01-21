@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Главная страница</title>
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<div id='content'>
+		<!--Элемент div, определяющий вывод названия текущей комнаты-->
+		<div id='room'></div>
+
+
+		<!--Элемент div, задающий вывод списка свободных комнат-->
+		<div id='room-list'></div>
+
+
+		<!--Элемент div, определяющий вывод сообщений чата-->
+		<div id='messages'></div>
+
+
+		<form id='send-form'>
+			<!--Элемент input формы, в котором пользователь вводит команды и сообщения-->
+			<input id='send-message'>
+			<input id='send-button' type='submit' value='Отправить'>
+
+			<div id='help'>
+				Команды чата:
+				<ul>
+					<li>
+						Смена имени
+						<code>/nick [новое имя]</code>
+					</li>
+					<li>
+						Создать/присоединить к комнате
+						<code>/join [имя комнаты]</code>
+					</li>
+				</ul>
+			</div>
+		</form>
+	</div>
+
+	<script src='/socket.io/socket.io.js'></script>
+	<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+	<script src='/js/chat.js'></script>
+	<script src='/js/chat_ui.js'></script>
+</body>
+</html>
