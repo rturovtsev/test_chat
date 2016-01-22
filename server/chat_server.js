@@ -140,3 +140,33 @@ function handleNameChangeAttempts(socket, nickNames, namesUsed) {
 		}
 	});
 }
+
+
+//отправка сообщений
+function handleMessageBroadcasting(socket) {
+	socket.on(‘message’, function (message) {
+		socket.broadcast.to(message.room).emit(‘message’, {
+			text: nickNames[socket.id] + ‘: ‘ + message.text
+		});
+	});
+}
+
+
+//выбор или создание другой комнаты чата
+function handleRoomJoining(socket) {
+	socket.on('join', function(room) {
+		socket.leave(currentRoom[socket.id]);
+		joinRoom(socket, room.newRoom);
+	});
+}
+
+
+//обработка выхода пользователя
+function handleClientDisconnection(socket) {
+	socket.on('disconnect', function() {
+		var nameIndex = namesUsed.indexOf(nickNames[socket.id]);
+
+		delete namesUsed[nameIndex];
+		delete nickNames[socket.id];
+	});
+}
