@@ -2,7 +2,7 @@ var http = require('http'),
 	fs = require('fs'),
 	path = require('path'),
 	mime = require('mime'),
-	catServer = require('server/chat_server'),
+	chatServer = require('./server/chat_server'),
 	cache = {};
 
 

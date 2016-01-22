@@ -38,7 +38,7 @@ exports.listen = function(server) {
 //Присваивание гостевого имени
 function assignGuestName(socket, guestNumber, nickNames, namesUsed) {
 	// Создание нового гостевого имени
-	var name = 'Guest' + guestNumber;
+	var name = 'Гость' + guestNumber;
 
 	// Связывание гостевого имени с идентификатором клиентского подключения
 	nickNames[socket.id] = name;
@@ -104,11 +104,11 @@ function joinRoom(socket, room) {
 function handleNameChangeAttempts(socket, nickNames, namesUsed) {
 	// Добавление слушателя событий nameAttempt
 	socket.on('nameAttempt', function(name) {
-		// Не допускаются имена, начинающиеся с Guest
-		if (name.indexOf('Guest') == 0) {
+		// Не допускаются имена, начинающиеся с Гость
+		if (name.indexOf('Гость') == 0) {
 			socket.emit('nameResult', {
 				success: false,
-				message: 'Имя не может начинаться с "Guest".'
+				message: 'Имя не может начинаться с "Гость".'
 			});
 		} else {
 			// Если имя не используется, выберите его
@@ -143,10 +143,10 @@ function handleNameChangeAttempts(socket, nickNames, namesUsed) {
 
 
 //отправка сообщений
-function handleMessageBroadcasting(socket) {
-	socket.on(‘message’, function (message) {
-		socket.broadcast.to(message.room).emit(‘message’, {
-			text: nickNames[socket.id] + ‘: ‘ + message.text
+function handleMessageBroadcasting(socket, nickNames) {
+	socket.on('message', function (message) {
+		socket.broadcast.to(message.room).emit('message', {
+			text: nickNames[socket.id] + ': ' + message.text
 		});
 	});
 }
